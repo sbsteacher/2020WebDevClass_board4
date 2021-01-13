@@ -62,6 +62,8 @@ public class Controller {
 		}
 		
 		if(SecurityUtils.getLoingUserPk(request) > 0) { //로그인이 되어 있는 상태
+			
+			
 			switch(urlArr[1]) {
 			case "board":
 				switch(urlArr[2]) {
@@ -76,6 +78,9 @@ public class Controller {
 					return;
 				case "modProc.korea":
 					bCont.modProc(request, response);
+					return;
+				case "ajaxFavorite.korea":
+					bCont.ajaxFavorite(request, response);
 					return;
 				}
 			}

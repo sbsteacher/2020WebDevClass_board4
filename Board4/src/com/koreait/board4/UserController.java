@@ -45,7 +45,7 @@ public class UserController {
 			loginUser.setUser_pw(null);
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);			
-			response.sendRedirect("/board/list.korea");			
+			response.sendRedirect("/board/list.korea?typ=1");			
 		} else { //비밀번호 틀림
 			request.setAttribute("msg", "비밀번호를 확인해 주세요");
 			login(request, response);

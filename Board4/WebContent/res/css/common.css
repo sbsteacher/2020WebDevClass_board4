@@ -33,6 +33,10 @@ tr.pointer:hover {
 	flex-direction: column;
 }
 
+.selectedBoard {
+	background-color: #e74c3c;
+}
+
 header ul {
     list-style-type: none;
     margin: 0;

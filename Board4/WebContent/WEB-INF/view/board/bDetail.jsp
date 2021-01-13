@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div>
-	<a href="list?typ=${data.typ}">돌아가기</a>
+	<a href="/board/list.korea?typ=${data.typ}">돌아가기</a>
 	
 	<c:if test="${data.i_user == loginUser.i_user}">
 		<button onclick="clkDel(${data.i_board}, ${data.typ});">삭제</button>
@@ -21,13 +21,15 @@
 		</div>
 	</div>
 	<div style="margin-top: 20px;">
+		<c:if test="${loginUser != null}">
 		<div>
 			<form action="cmt/reg" method="post">				
 				<input type="hidden" name="i_board" value="${data.i_board}">				
 				댓글: <input type="text" name="ctnt">
 				<input type="submit" value="댓글쓰기">
 			</form>
-		</div>		
+		</div>	
+		</c:if>
 		<div>
 			<table>
 				<tr>					
@@ -69,6 +71,7 @@
 		</div>
 	</div>
 	
+	<c:if test="${loginUser != null}">
 	<div id="favoriteContainer" is_favorite="${data.is_favorite}"
 		 onclick="toggleFavorite(${data.i_board});">	
 		<c:choose>
@@ -80,8 +83,8 @@
 			</c:otherwise>
 		</c:choose>		
 	</div>
+	</c:if>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 	<c:if test="${msg != null}">
 		alert('${msg}');
