@@ -87,15 +87,16 @@ public class BoardController {
 		int writerI_user = SecurityUtils.getLoingUserPk(request);		
 		String sql = " INSERT INTO t_board" + 
 				" (typ, seq, title, ctnt, i_user)" + 
-				" SELECT typ, IFNULL(MAX(seq), 0) + 1, ?, ?, ? FROM t_board" + 
+				" SELECT ?, IFNULL(MAX(seq), 0) + 1, ?, ?, ? FROM t_board" + 
 				" WHERE typ = ? ";		
 		int result = BoardDAO.executeUpdate(sql, new SQLInterUpdate() {
 			@Override
 			public void proc(PreparedStatement ps) throws SQLException {
-				ps.setNString(1, title);
-				ps.setNString(2, ctnt);
-				ps.setInt(3, writerI_user);
-				ps.setInt(4, typ);
+				ps.setInt(1, typ);
+				ps.setNString(2, title);
+				ps.setNString(3, ctnt);
+				ps.setInt(4, writerI_user);
+				ps.setInt(5, typ);
 			}
 		});		
 		response.sendRedirect("/board/list.korea?typ=" + typ);

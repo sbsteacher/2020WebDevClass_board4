@@ -33,6 +33,10 @@
 						</a>
 					</li>
 				</c:forEach>
+				<c:if test="${loginUser != null}">
+					<li><a href="/user/profile.korea">프로필</a></li>
+					<li><a href="/user/changePw.korea">비밀번호변경</a></li>
+				</c:if>
 			</ul>
 		</header>
 		<section>

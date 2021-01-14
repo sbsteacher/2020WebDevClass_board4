@@ -79,6 +79,9 @@ header ul li a:hover:not(.active) {
 	text-align: center;
 }
 
+.profileImg {
+	width: 300px;
+}
 
 
 
