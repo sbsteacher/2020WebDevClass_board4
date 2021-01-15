@@ -111,6 +111,7 @@ public class UserController {
 		UserModel param = new UserModel();
 		param.setI_user(SecurityUtils.getLoingUserPk(request));
 		request.setAttribute("data", UserDAO.selUser(param));
+		request.setAttribute("jsList", new String[] {"axios.min", "user"});
 		Utils.forwardTemp("프로필", "temp/basic_temp", "user/profile", request, response);
 	}
 	
@@ -161,6 +162,35 @@ public class UserController {
 		}
 		
 		response.sendRedirect("/user/profile.korea");
+	}
+	
+	
+	public void delProfileImg(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int i_user = SecurityUtils.getLoingUserPk(request);
+		String savePath = request.getServletContext().getRealPath("/res/img/" + i_user);
+		
+		File folder = new File(savePath);		
+		if(folder.exists()) { //기존 이미지 삭제처리
+			File[] folder_list = folder.listFiles(); 
+			for(File file : folder_list) {
+				if(file.isFile()) {
+					file.delete();
+				}
+			}
+			folder.delete();
+		}
+		String sql = "UPDATE t_user SET profile_img = null "
+				+ " WHERE i_user = ?";
+		
+		UserDAO.executeUpdate(sql, new SQLInterUpdate() {
+			@Override
+			public void proc(PreparedStatement ps) throws SQLException {				
+				ps.setInt(1, i_user);
+			}					
+		});		
+		String result = "{\"result\":1}";
+		response.setContentType("application/json");
+		response.getWriter().print(result);
 	}
 }
 

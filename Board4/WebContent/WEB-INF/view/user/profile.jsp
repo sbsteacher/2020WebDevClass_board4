@@ -6,10 +6,14 @@
 	<div class="profileBox">
 		<div>
 			<c:if test="${data.profile_img == null}">
-				<img class="profileImg" src="/res/img/basic_profile.jpg">				
+				<div class="circular--landscape circular--size200">
+					<img id="profileImg" src="/res/img/basic_profile.jpg">
+				</div>				
 			</c:if>
 			<c:if test="${data.profile_img != null}">
-				<img class="profileImg" src="/res/img/${loginUser.i_user}/${data.profile_img}">
+				<div class="circular--landscape circular--size200">
+					<img id="profileImg" src="/res/img/${loginUser.i_user}/${data.profile_img}">
+				</div>
 			</c:if>
 		</div>
 		<div>
@@ -19,11 +23,16 @@
 			<div>연락처 : ${data.ph}</div>
 		</div>
 		<div>
+			<c:if test="${data.profile_img != null}">
+				<div id="delProfileBtnContainer">
+					<button onclick="delProfileImg();">기본이미지 사용</button>
+				</div>
+			</c:if>
 			<form action="/user/profileUpload.korea" method="post" enctype="multipart/form-data">
 				<input type="file" name="profileImg">						
 				<input type="submit" value="업로드">
 			</form>
-		</div>
+		</div>		
 	</div>
 </div>
 
