@@ -7,12 +7,13 @@ import java.sql.ResultSet;
 import com.koreait.board4.model.UserModel;
 
 public class UserDAO extends CommonDAO {
+	//로그인, 프로필에서 사용!!
 	public static UserModel selUser(UserModel p) {		
 		String sql = " SELECT * FROM t_user WHERE ";
 		if(p.getUser_id() != null) {
-			sql += " user_id = ?";			
+			sql += " user_id = ?";	//로그인		
 		} else if(p.getI_user() > 0) {
-			sql += " i_user = ?";
+			sql += " i_user = ?"; //프로필
 		}
 		Connection con = null;
 		PreparedStatement ps = null;

@@ -118,37 +118,46 @@ public class UserController {
 	public void profileUpload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int i_user = SecurityUtils.getLoingUserPk(request);
 		String savePath = request.getServletContext().getRealPath("/res/img/" + i_user);
-		
+		System.out.println("savePath : " + savePath);
 		File folder = new File(savePath);
-		if(!folder.exists()) {
-			folder.mkdirs();
+		/*
+		//파일을 삭제한다면....
+		File imgFile = new File(savePath + "/파일명.jpg");
+		if(imgFile.exists()) {
+			imgFile.delete();
 		}
-		
-		int sizeLimit = 104_857_600; //100mb제한
-		
-		try {		
-			MultipartRequest multi = new MultipartRequest(request, savePath, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
-			
-			Enumeration files = multi.getFileNames();
-			if(files.hasMoreElements()) {
-				String eleName = (String)files.nextElement();			
-								
-				String fileNm = multi.getFilesystemName(eleName);
-				System.out.println("fileNm : " + fileNm);	
-				
-				String sql = "UPDATE t_user SET profile_img = ?"
-						+ " WHERE i_user = ?";
-				
-				UserDAO.executeUpdate(sql, new SQLInterUpdate() {
-					@Override
-					public void proc(PreparedStatement ps) throws SQLException {
-						ps.setString(1, fileNm);
-						ps.setInt(2, i_user);
-					}					
-				});
+		*/
+		if(folder.exists()) { //기존 이미지가 있었다면 삭제처리
+			File[] folder_list = folder.listFiles(); 
+			for(File file : folder_list) {
+				if(file.isFile()) {
+					file.delete();
+				}
 			}
-		} catch(Exception e) {
-			e.printStackTrace();
+			folder.delete();
+		}		
+		folder.mkdirs();
+		
+		int sizeLimit = 104_857_600; //100mb제한	
+		MultipartRequest multi = new MultipartRequest(request, savePath, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
+		
+		Enumeration files = multi.getFileNames();
+		if(files.hasMoreElements()) {
+			String eleName = (String)files.nextElement();			
+							
+			String fileNm = multi.getFilesystemName(eleName);
+			System.out.println("fileNm : " + fileNm);	
+			
+			String sql = "UPDATE t_user SET profile_img = ?"
+					+ " WHERE i_user = ?";
+			
+			UserDAO.executeUpdate(sql, new SQLInterUpdate() {
+				@Override
+				public void proc(PreparedStatement ps) throws SQLException {
+					ps.setString(1, fileNm);
+					ps.setInt(2, i_user);
+				}					
+			});
 		}
 		
 		response.sendRedirect("/user/profile.korea");
