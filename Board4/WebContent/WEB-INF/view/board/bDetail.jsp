@@ -13,7 +13,20 @@
 	<div>
 		<div>번호 : ${data.seq}</div>
 		<div>조회수 : ${data.hits}</div>
-		<div>이름 : ${data.writer_nm}</div>
+		<div>
+			이름 :
+			<c:if test="${data.profile_img == null}">
+				<div class="circular--landscape circular--size40">
+					<img id="profileImg" src="/res/img/basic_profile.jpg">
+				</div>				
+			</c:if>
+			<c:if test="${data.profile_img != null}">
+				<div class="circular--landscape circular--size40">
+					<img id="profileImg" src="/res/img/${data.i_user}/${data.profile_img}">
+				</div>
+			</c:if>
+			<span class="profile-td-nm">${data.writer_nm}</span>
+		</div>
 		<div>제목 : ${data.title}</div>
 		<div>작성일 : ${data.r_dt}</div>
 		<div>

@@ -74,6 +74,12 @@ public class Controller {
 					case "delProfileImg.korea":
 						uCont.delProfileImg(request, response);
 					return;
+					case "changePw.korea":
+						uCont.changePw(request, response);
+					return;
+					case "changePwProc.korea":
+						uCont.changePwProc(request, response);
+					return;
 				}
 				return;
 			case "board":

@@ -86,9 +86,9 @@ header ul li a:hover:not(.active) {
   border: 4px solid #ecf0f1;
 }
 
-.circular--size50 {
-	width: 50px;
-	height: 50px;
+.circular--size40 {
+	width: 40px;
+	height: 40px;
 }
 
 .circular--size200 {
@@ -103,8 +103,14 @@ header ul li a:hover:not(.active) {
 }
 
 
+.profile-td {
+	display: flex;
+    align-items: center;
+}
 
-
-
+.profile-td .profile-td-nm {
+	display: inline-block;
+    margin-left: 10px;
+}
 
 

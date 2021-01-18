@@ -11,7 +11,7 @@ public class BoardDAO extends CommonDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String sql = " SELECT A.i_board, A.typ, A.seq, A.title, A.ctnt, A.r_dt, A.hits"
-				+ " , B.i_user, B.nm AS writer_nm"
+				+ " , B.i_user, B.nm AS writer_nm, B.profile_img"
 				+ " , ifnull(C.favorite_cnt, 0) AS favorite_cnt"
 				+ " , CASE WHEN D.i_board IS NULL THEN 0 ELSE 1 END AS is_favorite"
 				+ " FROM t_board A"
@@ -45,6 +45,7 @@ public class BoardDAO extends CommonDAO {
 				vo.setHits(rs.getInt("hits"));
 				vo.setI_user(rs.getInt("i_user"));
 				vo.setWriter_nm(rs.getString("writer_nm"));
+				vo.setProfile_img(rs.getString("profile_img"));
 				vo.setFavorite_cnt(rs.getInt("favorite_cnt"));
 				vo.setIs_favorite(rs.getInt("is_favorite"));
 				return vo;
@@ -65,7 +66,7 @@ public class BoardDAO extends CommonDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String sql = " SELECT A.i_board, A.seq, A.title, A.r_dt, A.hits"
-				+ " , B.i_user, B.nm AS writer_nm"
+				+ " , B.i_user, B.nm AS writer_nm, B.profile_img"
 				+ " , ifnull(C.favorite_cnt, 0) AS favorite_cnt"
 				+ " FROM t_board A"
 				+ " LEFT JOIN t_user B"
@@ -94,6 +95,7 @@ public class BoardDAO extends CommonDAO {
 				vo.setHits(rs.getInt("hits"));
 				vo.setI_user(rs.getInt("i_user"));
 				vo.setWriter_nm(rs.getString("writer_nm"));
+				vo.setProfile_img(rs.getString("profile_img"));
 				vo.setFavorite_cnt(rs.getInt("favorite_cnt"));
 			}
 		} catch (Exception e) {
